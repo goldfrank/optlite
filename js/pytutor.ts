@@ -4213,7 +4213,7 @@ class NavigationController {
                      </div>\
                      <div id="errorOutput"/>\
                      <div id="creditsPane"></div>\
-                     <div id="uiControlsPane"><a id="customizeVizLink" href="#">Customize visualization</a> (<font color="#e93f34">NEW!</font>)</div>\
+                     <div id="uiControlsPane"><a id="customizeVizLink" href="#">Customize visualization</a></div>\
                    </div>';
 
     this.domRoot.append(navHTML);

@@ -298,7 +298,7 @@ export class OptFrontend extends AbstractBaseFrontend {
     s.setOption("useWorker", false);
 
     this.setAceMode();
-    this.pyInputAceEditor.focus();
+    // this.pyInputAceEditor.focus();
   }
 
   setAceMode() {
@@ -352,9 +352,9 @@ export class OptFrontend extends AbstractBaseFrontend {
     // }
 
     //if (selectorVal === 'js' || selectorVal === '2' || selectorVal === '3' || selectorVal === 'pyodide') {
-      $("#liveModeBtn").show();
+      // $("#liveModeBtn").show();
    // } else {
-   //   $("#liveModeBtn").hide();
+     $("#liveModeBtn").hide();
    // }
 
     this.clearFrontendError();
@@ -509,7 +509,7 @@ export class OptFrontend extends AbstractBaseFrontend {
         if (trace[0].col !== undefined) {
           this.pyInputAceEditor.moveCursorTo(errorLineNo, trace[0].col);
         }
-        this.pyInputAceEditor.focus();
+        // this.pyInputAceEditor.focus();
       }
     }
   }
@@ -576,12 +576,11 @@ export class OptFrontend extends AbstractBaseFrontend {
 
       $("#pyInputPane").show();
       $("#pyOutputPane,#embedLinkDiv").hide();
-
       // Potentially controversial: when you enter edit mode, DESTROY any
       // existing visualizer object. note that this simplifies the app's
       // conceptual model but breaks the browser's expected Forward and
       // Back button flow
-      $("#pyOutputPane").empty();
+      // $("#pyOutputPane").empty();
       // right before destroying, submit the visualizer's updateHistory
       // this.submitUpdateHistory('editMode');
       this.myVisualizer = null; // yikes!
@@ -597,7 +596,7 @@ export class OptFrontend extends AbstractBaseFrontend {
       // keep these persistent so that they survive page reloads
       if (typeof codeopticonSession !== "undefined") { s.cosession = codeopticonSession; }
       if (typeof codeopticonUsername !== "undefined") { s.couser = codeopticonUsername; }
-      $.bbq.pushState(s, 2 /* completely override other hash strings to keep URL clean */);
+      // $.bbq.pushState(s, 2 /* completely override other hash strings to keep URL clean */);
     } else if (this.appMode == 'display' || this.appMode == 'visualize' /* 'visualize' is deprecated */) {
       assert(this.myVisualizer);
       this.appMode = 'display'; // canonicalize
@@ -642,7 +641,7 @@ export class OptFrontend extends AbstractBaseFrontend {
       // keep these persistent so that they survive page reloads
       if (typeof codeopticonSession !== "undefined") { s.cosession = codeopticonSession; }
       if (typeof codeopticonUsername !== "undefined") { s.couser = codeopticonUsername; }
-      $.bbq.pushState(s, 2 /* completely override other hash strings to keep URL clean */);
+      // $.bbq.pushState(s, 2 /* completely override other hash strings to keep URL clean */);
     } else {
       assert(false);
     }
@@ -762,7 +761,7 @@ export class OptFrontend extends AbstractBaseFrontend {
       queryStrOptions.preseededCode /* jump to 'display' mode only with preseeded code */) {
       this.executeCode(this.preseededCurInstr); // will switch to 'display' mode
     }
-    $.bbq.removeState(); // clean up the URL no matter what
+    // $.bbq.removeState(); // clean up the URL no matter what
   }
 
 } // END class OptFrontend
