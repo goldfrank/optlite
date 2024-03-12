@@ -1,5 +1,12 @@
 # OPT Lite
 
+## Modified from dive4dec for embeds
+
+- Removes back button hijack
+- Removes focus steal
+
+## Original Docs
+
 [Online Python Tutor](https://pythontutor.com/) (OPT) is a popular virtual learning tool that provides interactive visualisation of program execution in a browser without login. However, such a tool is not easy to maintain because serving allowing the public to run programs in a server without login incurs high computational cost in addition to security risks. 
 
 This project makes OPT serverless, i.e., usuable offline without a server. Python programs are run by the browser using [pyodide](https://pyodide.org). Hence, teachers can enable more python packages/functions than the original setup without worrying about network attacks. For online exam, students may also use the tool to debug programs without worry of network outage. It can also run in [Safe Exam Browser](https://safeexambrowser.org/).
@@ -28,7 +35,7 @@ Git clone the current repository by running
 git clone https://github.com/dive4dec/optlite
 ```
 
-Setup a python environment. In the root folder of the repository, run the following to create the python wheel file under `dist` folder.
+Setup a python environment. Requires Python 3.11. In the root folder of the repository, run the following to create the python wheel file under `dist` folder.
 
 ```
 pip install -r optlite/requirements.txt
@@ -45,7 +52,7 @@ npm run build:prod
 Serve the content in `build` directory using an http server, e.g.:
 
 ```
-python -m simple.http -d build
+python -m http.server -d build
 ```
 
 To install addition packages, take a look at the OptLite object at
