@@ -123,17 +123,22 @@ export class OptFrontend extends AbstractBaseFrontend {
       var myArgs = this.getAppState();
       var urlStr = $.param.fragment(window.location.href, myArgs, 2); // 2 means 'override'
       urlStr = sanitizeURL(urlStr);
-      // var code_str = console.log(urlStr.split("#")[1]);
-      $('#urlOutput').val(urlStr);
+      var domain = urlStr.split("/visualize/index.html#code")[0]
+      console.log(domain);
+      var code_str = urlStr.split("#")[1].split("&mode=edit")[0];
+      var embed_header = domain + "/visualize/visualize.html?";
+      var embed_tail = "&mode=display&origin=opt-frontend.js&rawInputLstJSON=[]"
+      var urlStrOut = embed_header + code_str + embed_tail
+      $('#urlOutput').val(urlStrOut);
     });
 
     $('#genEmbedBtn').bind('click', () => {
       var myArgs = this.getAppState();
       var urlStr = $.param.fragment(window.location.href, myArgs, 2); // 2 means 'override'
       urlStr = sanitizeURL(urlStr);
-      var domain = urlStr.split("index.html")[0]
-      var code_str = urlStr.split("#")[1].split("#")[0];
-      var embed_header = "<iframe class=\"opt-embed\" width=\"1000\" height=\"440\" src=\"" + domain + "/visualize.html?";
+      var domain = urlStr.split("#code")[0]
+      var code_str = urlStr.split("#")[1].split("&mode=edit")[0];
+      var embed_header = "<iframe class=\"opt-embed\" width=\"1000\" height=\"440\" src=\"" + domain + "visualize/index.html#";
       var embed_tail = "&mode=display&origin=opt-frontend.js&rawInputLstJSON=[]\" > </iframe>"
       var urlStrOut = embed_header + code_str + embed_tail
       $('#urlOutputEmbed').val(urlStrOut);
