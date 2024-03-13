@@ -81,24 +81,24 @@ export class OptFrontend extends AbstractBaseFrontend {
   constructor(params = {}) {
     super(params);
 
-    $('#genEmbedBtn').bind('click', () => {
-      var mod = this.appMode;
-      assert(mod == 'display' || mod == 'visualize' /* deprecated */);
-      var myArgs = this.getAppState();
-      delete myArgs.mode;
-      (myArgs as any).codeDivWidth = ExecutionVisualizer.DEFAULT_EMBEDDED_CODE_DIV_WIDTH;
-      (myArgs as any).codeDivHeight = ExecutionVisualizer.DEFAULT_EMBEDDED_CODE_DIV_HEIGHT;
+    // $('#genEmbedBtn').bind('click', () => {
+    //   var mod = this.appMode;
+    //   assert(mod == 'display' || mod == 'visualize' /* deprecated */);
+    //   var myArgs = this.getAppState();
+    //   delete myArgs.mode;
+    //   (myArgs as any).codeDivWidth = ExecutionVisualizer.DEFAULT_EMBEDDED_CODE_DIV_WIDTH;
+    //   (myArgs as any).codeDivHeight = ExecutionVisualizer.DEFAULT_EMBEDDED_CODE_DIV_HEIGHT;
 
-      var myArgs = this.getAppState();
-      var embedUrlStr = $.param.fragment(window.location.href, myArgs, 2); // 2 means 'override'
-      embedUrlStr = sanitizeURL(embedUrlStr);
+    //   var myArgs = this.getAppState();
+    //   var embedUrlStr = $.param.fragment(window.location.href, myArgs, 2); // 2 means 'override'
+    //   embedUrlStr = sanitizeURL(embedUrlStr);
 
-      //var domain = "http://mytutor.cs.cityu.edu.hk/opt3/"; // for deployment
-      //var embedUrlStr = $.param.fragment(domain + "iframe-embed.html", myArgs, 2 /* clobber all */);
-      //embedUrlStr = sanitizeURL(embedUrlStr);
-      var iframeStr = '<iframe width="800" height="500" frameborder="0" src="' + embedUrlStr + '"> </iframe>';
-      $('#embedCodeOutput').val(iframeStr);
-    });
+    //   //var domain = "http://mytutor.cs.cityu.edu.hk/opt3/"; // for deployment
+    //   //var embedUrlStr = $.param.fragment(domain + "iframe-embed.html", myArgs, 2 /* clobber all */);
+    //   //embedUrlStr = sanitizeURL(embedUrlStr);
+    //   var iframeStr = '<iframe width="800" height="500" frameborder="0" src="' + embedUrlStr + '"> </iframe>';
+    //   $('#embedCodeOutput').val(iframeStr);
+    // });
 
     this.initAceEditor(420);
 
@@ -123,7 +123,20 @@ export class OptFrontend extends AbstractBaseFrontend {
       var myArgs = this.getAppState();
       var urlStr = $.param.fragment(window.location.href, myArgs, 2); // 2 means 'override'
       urlStr = sanitizeURL(urlStr);
+      // var code_str = console.log(urlStr.split("#")[1]);
       $('#urlOutput').val(urlStr);
+    });
+
+    $('#genEmbedBtn').bind('click', () => {
+      var myArgs = this.getAppState();
+      var urlStr = $.param.fragment(window.location.href, myArgs, 2); // 2 means 'override'
+      urlStr = sanitizeURL(urlStr);
+      var domain = urlStr.split("index.html")[0]
+      var code_str = urlStr.split("#")[1].split("#")[0];
+      var embed_header = "<iframe class=\"opt-embed\" width=\"1000\" height=\"440\" src=\"" + domain + "/visualize.html?";
+      var embed_tail = "&mode=display&origin=opt-frontend.js&rawInputLstJSON=[]\" > </iframe>"
+      var urlStrOut = embed_header + code_str + embed_tail
+      $('#urlOutputEmbed').val(urlStrOut);
     });
 
     /* 2019-04-09 took this down since google's URL shortener service shut down :/
